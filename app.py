@@ -98,7 +98,7 @@ def messages(login):
         (m.dst == dst and m.src == current_user)
         or
         (m.src == dst and m.dst == current_user)
-    )
+    ).order_by(lambda m: m.created_at)
     return render_template('messages.html', messages=messages, form=form)
 
 
