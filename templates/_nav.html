@@ -3,10 +3,12 @@
     <ul>
         {% if g.user.is_authenticated %}
         <li>
-            {{g.user.first_name}}
+            <span>{{g.user}}</span>
             <ul>
                 <li>
-
+                    <a href="{{ url_for('profile') }}">Profile</a>
+                </li>
+                <li>
                     <a href="{{ url_for('logout') }}">Logout</a>
                 </li>
             </ul>

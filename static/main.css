@@ -25,7 +25,7 @@ body {
 }
 
 body>header{
-  padding: 0.5em 3vw;
+  padding: 0.5em 4.5vw;
   box-shadow: 0 2px 5px rgba(0,0,0,0.15);
   z-index: 10;
 }
@@ -54,8 +54,11 @@ nav>ul {
 
 nav li {
   margin:0;
-  padding: 0.75em 24px;
   display: inline-block;
+}
+nav li>a, nav li>span{
+  padding: 0.75em 24px;
+  display: block;
 }
 
 nav ul {
@@ -78,7 +81,12 @@ nav li>ul {
   border-radius: 4px;
 }
 nav li:hover>ul,
-nav li:focus-within>ul{display:block;}
+nav li:focus-within>ul{
+  display:flex;
+  flex-flow: column;
+  align-items: right
+}
+
 table, form, body>header, nav li>ul{
   background-color: var(--bg);
 }
@@ -88,11 +96,11 @@ table, form {
 }
 
 main {
-  padding: 3vw;
+  padding: 4.5vw;
   overflow: auto;
 }
 form {
-  padding: 3vw;
+  padding: 4.5vw;
 }
 form label {
   display: block;

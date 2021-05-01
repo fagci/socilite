@@ -14,7 +14,7 @@ from flask_login import (
 from pony.flask import Pony
 from pony.orm.core import db_session, desc, flush
 
-from forms import LoginForm, MessageForm, RegisterForm
+from forms import LoginForm, MessageForm, ProfileForm, RegisterForm
 from models import Message, User, db
 
 app = Flask(__name__)
@@ -101,6 +101,16 @@ def messages(login):
         (m.src == dst and m.dst == current_user)
     ).order_by(lambda m: m.created_at)
     return render_template('messages.html', messages=messages, form=form)
+
+
+@app.route('/profile', methods=['GET', 'POST'])
+@login_required
+def profile():
+    form = ProfileForm(**current_user.to_dict())
+    if form.validate_on_submit():
+        current_user.first_name = form.first_name.data
+        current_user.last_name = form.last_name.data
+    return render_template('profile.html', form=form)
 
 
 @app.before_request

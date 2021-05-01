@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
+import flask_wtf
 from wtforms.fields.core import StringField
-from wtforms.fields.simple import PasswordField, TextAreaField
+from wtforms.fields.simple import PasswordField, TextAreaField, TextField
 from wtforms.validators import DataRequired
 
 from models import User
@@ -44,3 +45,8 @@ class RegisterForm(FlaskForm):
 
 class MessageForm(FlaskForm):
     text = TextAreaField('Message', validators=[DataRequired()])
+
+
+class ProfileForm(FlaskForm):
+    first_name = StringField('First name', validators=[DataRequired()])
+    last_name = StringField('First name', validators=[DataRequired()])

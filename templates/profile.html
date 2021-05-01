@@ -1,0 +1,15 @@
+
+{% extends 'base.html' %}
+{% block content %}
+<section>
+    <h1>Profile</h1>
+    {% from "_macro.html" import input %}
+    <form action="" method="POST">
+        {{form.hidden_tag()}}
+        {{input(form.first_name)}}
+        {{input(form.last_name)}}
+
+        <button type="submit">Save</button>
+    </form>
+</section>
+{% endblock %}
