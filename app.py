@@ -2,11 +2,8 @@
 
 from datetime import datetime
 
-from flask.helpers import url_for
-
-from forms import LoginForm, MessageForm, RegisterForm
-
 from flask import Flask, g, redirect, render_template
+from flask.helpers import url_for
 from flask_login import (
     LoginManager,
     current_user,
@@ -15,8 +12,9 @@ from flask_login import (
     logout_user,
 )
 from pony.flask import Pony
-from pony.orm.core import flush, db_session
+from pony.orm.core import db_session, flush
 
+from forms import LoginForm, MessageForm, RegisterForm
 from models import Message, User, db
 
 app = Flask(__name__)
