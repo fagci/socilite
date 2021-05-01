@@ -1,0 +1,23 @@
+<nav>
+    <a href="{{url_for('index')}}">Socilite</a>
+    <ul>
+        {% if g.user.is_authenticated %}
+        <li>
+            {{g.user.first_name}}
+            <ul>
+                <li>
+
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                </li>
+            </ul>
+        </li>
+        {% else %}
+        <li>
+            <a href="{{ url_for('login') }}">Login</a>
+        </li>
+        <li>
+            <a href="{{ url_for('reg') }}">Register</a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>

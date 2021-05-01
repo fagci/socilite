@@ -1,0 +1,108 @@
+:root {
+  --c-link: hsl(190,75%, 45%);
+  --c-button: #fff;
+  --bg-button: hsl(190,75%, 45%);
+  --bg: #fff;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  flex-flow: column;
+  height: 100vh;
+  background-color: #fafafa;
+}
+* {
+  box-sizing: border-box;
+}
+body>header{
+  padding: 0.5em 3vw;
+}
+
+a {
+  text-decoration: none;
+  font-weight: bolder;
+  color: var(--c-link);
+}
+
+nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+nav>a {
+  font-size: 1.75em;
+}
+
+nav>ul {
+  display: flex;
+  flex-wrap: wrap;
+  padding:0;
+  margin: 0;
+  list-style-type: none;
+}
+
+nav li {
+  display: inline-block;
+  padding: 0.75em 24px;
+  margin:0;
+}
+
+nav>ul>li{
+  position: relative;
+  background-color: #afa;
+}
+
+nav li>ul {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  box-shadow: 0 2px 3px rgba(0,0,0,0.15);
+  border-radius: 4px;
+}
+table, form, body>header, nav li>ul{
+  background-color: var(--bg);
+}
+table, form {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+main {
+  padding: 3vw;
+  overflow: auto;
+}
+form {
+  padding: 3vw;
+}
+form label {
+  display: block;
+}
+
+input, textarea, select {
+  margin-bottom: 0.75em;
+  padding: 8px;
+}
+
+button, input[type="button"] {
+  padding: 0.75em 2.5em;
+  text-transform: uppercase;
+  color: var(--c-button);
+  background: var(--bg-button);
+  border:none;
+  border-radius: 4px;
+}
+table {
+  width: 100%;
+}
+table tr:not(:last-child)>td{
+  border-bottom: 1px solid #ddd;
+}
+td{
+  padding: 0.75em 16px;
+}
+small {
+  color: #666;
+}

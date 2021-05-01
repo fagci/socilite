@@ -4,48 +4,16 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{ title }}</title>
-        <link rel="stylesheet" href="https://unpkg.com/mvp.css">
-        <style>
-body {padding:0;}
-body>header{padding-top:0;padding-bottom:0;background-color:#eef;}
-nav{margin-bottom:0;}
-hr {margin: 0.5rem 0;}
-        </style>
+        <link rel="stylesheet" href="{{ url_for('static', filename='typography.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
     </head>
     <body>
         <header>
-            <nav>
-                <a href="{{url_for('index')}}">Socilite</a>
-                <ul>
-                    {% if g.user.is_authenticated %}
-                    <li>
-                        {{g.user.first_name}}
-                        <ul>
-                            <li>
-
-                                <a href="{{ url_for('logout') }}">Logout</a>
-                            </li>
-                        </ul>
-                    </li>
-                    {% else %}
-                    <li>
-                        <a href="{{ url_for('login') }}">Login</a>
-                    </li>
-                    <li>
-                        <a href="{{ url_for('reg') }}">Register</a>
-                    </li>
-                    {% endif %}
-                </ul>
-            </nav>
+            {% include '_nav.html' %}
         </header>
         <main>
             {% block content %}{% endblock %}
         </main>
-        <script>
-            Array.prototype.forEach.call(document.querySelectorAll('time[datetime]'), function(el){
-                el.innerHTML = new Date(el.getAttribute('datetime'))
-                    .toLocaleString();
-            });
-        </script>
+        <script src="{{ url_for('static', filename='main.js') }}"></script>
     </body>
 </html>

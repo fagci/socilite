@@ -19,8 +19,10 @@ from models import Message, User, db
 
 app = Flask(__name__)
 app.config.update(dict(
-    DEBUG=False,
+    DEBUG=True,
     SECRET_KEY='my_$3cr37',
+    TEMPLATES_AUTO_RELOAD=True,
+    SEND_FILE_MAX_AGE_DEFAULT=0,
     PONY={
         'provider': 'sqlite',
         'filename': 'db.sqlite',
@@ -105,6 +107,15 @@ def messages(login):
 @db_session
 def _load_user():
     g.user = current_user
+
+
+@app.after_request
+def add_header(r):
+    r.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    r.headers["Pragma"] = "no-cache"
+    r.headers["Expires"] = "0"
+    r.headers['Cache-Control'] = 'public, max-age=0'
+    return r
 
 
 if __name__ == '__main__':
