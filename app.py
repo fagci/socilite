@@ -3,7 +3,7 @@
 from datetime import datetime
 from forms import LoginForm, RegisterForm
 
-from flask import Flask, flash, redirect, render_template, request
+from flask import Flask, g, redirect, render_template
 from flask_login import (
     LoginManager,
     current_user,
@@ -12,7 +12,7 @@ from flask_login import (
     logout_user,
 )
 from pony.flask import Pony
-from pony.orm.core import flush
+from pony.orm.core import flush, db_session
 
 from models import Message, User, db
 
@@ -37,9 +37,9 @@ def index():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        possible_user = User.get(login=form.login.data)
-        possible_user.last_login = datetime.now()
-        login_user(possible_user)
+        user = User.get(login=form.login.data)
+        user.last_login = datetime.now()
+        login_user(user)
         return redirect('/')
 
     return render_template('login.html', form=form)
@@ -58,6 +58,7 @@ def reg():
         flush()
         login_user(user)
         return redirect('/')
+
     return render_template('reg.html', form=form)
 
 
@@ -74,6 +75,12 @@ def messages():
     return render_template('messages.html', messages=current_user.messages)
 
 
+@app.before_request
+@db_session
+def _load_user():
+    g.user = current_user
+
+
 if __name__ == '__main__':
     db.bind(**app.config['PONY'])
     db.generate_mapping(create_tables=True)
@@ -84,4 +91,5 @@ if __name__ == '__main__':
     @login_manager.user_loader
     def load_user(user_id):
         return User.get(id=user_id)
+
     app.run()

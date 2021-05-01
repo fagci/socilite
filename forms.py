@@ -37,7 +37,6 @@ class RegisterForm(FlaskForm):
             return False
 
         try:
-            User.get(login=self.login.data)
-            return False
+            return not User.get(login=self.login.data)
         except:
             return True

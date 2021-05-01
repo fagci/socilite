@@ -11,7 +11,7 @@
             <nav>
                 <a href="{{url_for('index')}}">Socilite</a>
                 <ul>
-                    {% if user %}
+                    {% if g.user %}
                     <li>
                         <a href="{{ url_for('logout') }}">Logout</a>
                     </li>
