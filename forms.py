@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms.fields.core import StringField
-from wtforms.fields.simple import PasswordField
+from wtforms.fields.simple import PasswordField, TextAreaField
 from wtforms.validators import DataRequired
+
 from models import User
 
 
@@ -14,16 +15,15 @@ class LoginForm(FlaskForm):
             return False
 
         try:
-            possible_user = User.get(login=self.login.data)
+            user = User.get(login=self.login.data)
         except:
-            possible_user = None
+            user = None
 
-        valid = possible_user and possible_user.check_password(
-            self.password.data)
+        valid = user and user.check_password(self.password.data)
 
         if not valid:
-            self.password.errors.append(
-                'Wrong username or password or user not found')
+            self.password.errors.append('Wrong username or password')
+
         return valid
 
 
@@ -40,3 +40,7 @@ class RegisterForm(FlaskForm):
             return not User.get(login=self.login.data)
         except:
             return True
+
+
+class MessageForm(FlaskForm):
+    text = TextAreaField('text', validators=[DataRequired()])

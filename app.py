@@ -2,7 +2,9 @@
 
 from datetime import datetime
 
-from forms import LoginForm, RegisterForm
+from flask.helpers import url_for
+
+from forms import LoginForm, MessageForm, RegisterForm
 
 from flask import Flask, g, redirect, render_template
 from flask_login import (
@@ -79,16 +81,25 @@ def reg():
 @login_required
 def logout():
     logout_user()
-    print('logout')
     return redirect('/')
 
 
-@app.route('/messages/<login>')
+@app.route('/messages/<login>', methods=['GET', 'POST'])
 @login_required
 def messages(login):
-    f = User.get(login=login)
-    messages = current_user.sent.filter(lambda m: m.src == f or m.dst == f)
-    return render_template('messages.html', messages=messages)
+    dst = User.get(login=login)
+    form = MessageForm()
+    if form.validate_on_submit():
+        Message(src=current_user, dst=dst, text=form.text.data)
+        return redirect(url_for('messages', login=login))
+
+    messages = Message.select(
+        lambda m:
+        (m.dst == dst and m.src == current_user)
+        or
+        (m.src == dst and m.dst == current_user)
+    )
+    return render_template('messages.html', messages=messages, form=form)
 
 
 @app.before_request
@@ -114,4 +125,4 @@ if __name__ == '__main__':
     def load_user(user_id):
         return User.get(id=user_id)
 
-    app.run()
+    app.run(host='0.0.0.0')
