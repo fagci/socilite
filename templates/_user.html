@@ -5,7 +5,10 @@
         {% else %}
         {{u}}
         {% endif %}
+        {% set dt = u.last_login or u.created_at %}
+        <br><small><time datetime="{{dt.isoformat('T','seconds')}}Z">{{dt.strftime('%d.%m.%Y %H:%M')}}</time></small>
     </td>
+    {% if g.user.is_authenticated %}
     <td>
         {% if u in g.user.friends %}
         <a href="{{url_for('remove_friend', login=u.login)}}">remove friend</a>
@@ -13,4 +16,5 @@
         <a href="{{url_for('add_friend', login=u.login)}}">add friend</a>
         {% endif %}
     </td>
+    {% endif %}
 </tr>

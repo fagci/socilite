@@ -7,8 +7,8 @@ from models import User
 
 
 class LoginForm(FlaskForm):
-    login = StringField('login', validators=[DataRequired()])
-    password = PasswordField('password', validators=[DataRequired()])
+    login = StringField('Login', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
 
     def validate(self):
         if not super(LoginForm, self).validate():
@@ -28,9 +28,9 @@ class LoginForm(FlaskForm):
 
 
 class RegisterForm(FlaskForm):
-    first_name = StringField('first_name', validators=[DataRequired()])
-    login = StringField('login', validators=[DataRequired()])
-    password = PasswordField('password', validators=[DataRequired()])
+    first_name = StringField('First name', validators=[DataRequired()])
+    login = StringField('Login', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
 
     def validate(self):
         if not super(RegisterForm, self).validate():
@@ -43,4 +43,4 @@ class RegisterForm(FlaskForm):
 
 
 class MessageForm(FlaskForm):
-    text = TextAreaField('text', validators=[DataRequired()])
+    text = TextAreaField('Message', validators=[DataRequired()])

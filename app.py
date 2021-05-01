@@ -12,7 +12,7 @@ from flask_login import (
     logout_user,
 )
 from pony.flask import Pony
-from pony.orm.core import db_session, flush
+from pony.orm.core import db_session, desc, flush
 
 from forms import LoginForm, MessageForm, RegisterForm
 from models import Message, User, db
@@ -31,7 +31,8 @@ app.config.update(dict(
 
 @app.route('/')
 def index():
-    return render_template('index.html', users=User.select())
+    users = User.select().order_by(lambda u: desc(u.last_login))
+    return render_template('index.html', users=users)
 
 
 @app.route('/add_friend/<login>')
@@ -51,7 +52,7 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         user = User.get(login=form.login.data)
-        user.last_login = datetime.now()
+        user.last_login = datetime.utcnow()
         login_user(user)
         return redirect('/')
 
@@ -67,7 +68,7 @@ def reg():
             password=form.password.data,
             first_name=form.first_name.data
         )
-        user.last_login = datetime.now()
+        user.last_login = datetime.utcnow()
         flush()
         login_user(user)
         return redirect('/')

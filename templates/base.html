@@ -5,12 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{{ title }}</title>
         <link rel="stylesheet" href="https://unpkg.com/mvp.css">
-<style>
+        <style>
 body {padding:0;}
 body>header{padding-top:0;padding-bottom:0;background-color:#eef;}
 nav{margin-bottom:0;}
 hr {margin: 0.5rem 0;}
-</style>
+        </style>
     </head>
     <body>
         <header>
@@ -23,7 +23,7 @@ hr {margin: 0.5rem 0;}
                         <ul>
                             <li>
 
-                        <a href="{{ url_for('logout') }}">Logout</a>
+                                <a href="{{ url_for('logout') }}">Logout</a>
                             </li>
                         </ul>
                     </li>
@@ -41,5 +41,11 @@ hr {margin: 0.5rem 0;}
         <main>
             {% block content %}{% endblock %}
         </main>
+        <script>
+            Array.prototype.forEach.call(document.querySelectorAll('time[datetime]'), function(el){
+                el.innerHTML = new Date(el.getAttribute('datetime'))
+                    .toLocaleString();
+            });
+        </script>
     </body>
 </html>
