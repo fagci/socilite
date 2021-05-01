@@ -70,6 +70,7 @@ nav ul {
 
 nav>ul>li{
   position: relative;
+  margin-right: -24px;
 }
 
 nav li>ul {
