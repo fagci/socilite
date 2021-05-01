@@ -2,8 +2,20 @@
 {% block content %}
 <h2>Friends</h2>
 <table>
-    {% for f in g.user.friends %}
-        <tr><td>{{ f.first_name }}</td></tr>
+    {% for u in g.user.friends %}
+        <tr>
+            <td>{{ u.first_name }}</td>
+            <td><a href="{{url_for('remove_friend', login=u.login)}}">remove friend</a></td>
+        </tr>
+    {% endfor %}
+</table>
+<h2>Users</h2>
+<table>
+    {% for u in users %}
+    <tr>
+        <td>{{ u.first_name }}</td>
+        <td><a href="{{url_for('add_friend', login=u.login)}}">add friend</a></td>
+    </tr>
     {% endfor %}
 </table>
 {% endblock %}

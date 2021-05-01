@@ -2,7 +2,6 @@
 
 from datetime import datetime
 
-from flask_login.mixins import UserMixin
 from forms import LoginForm, RegisterForm
 
 from flask import Flask, g, redirect, render_template
@@ -32,7 +31,19 @@ app.config.update(dict(
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', users=User.select())
+
+
+@app.route('/add_friend/<login>')
+def add_friend(login):
+    current_user.friends.add(User.get(login=login))
+    return redirect('/')
+
+
+@app.route('/remove_friend/<login>')
+def remove_friend(login):
+    current_user.friends.remove(User.get(login=login))
+    return redirect('/')
 
 
 @app.route('/login', methods=['GET', 'POST'])
