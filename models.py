@@ -18,6 +18,7 @@ class User(db.Entity, UserMixin, Timestampable):
     last_name = Optional(str)
     last_login = Optional(datetime)
     messages = Set('Message')
+    friends = Set('User')
 
     def check_password(self, password):
         return self.password == password

@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 
 from datetime import datetime
+
+from flask_login.mixins import UserMixin
 from forms import LoginForm, RegisterForm
 
 from flask import Flask, g, redirect, render_template
@@ -45,7 +47,7 @@ def login():
     return render_template('login.html', form=form)
 
 
-@app.route('/reg', methods=['GET', 'POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def reg():
     form = RegisterForm()
     if form.validate_on_submit():
@@ -59,13 +61,14 @@ def reg():
         login_user(user)
         return redirect('/')
 
-    return render_template('reg.html', form=form)
+    return render_template('register.html', form=form)
 
 
 @app.route('/logout')
 @login_required
 def logout():
     logout_user()
+    print('logout')
     return redirect('/')
 
 

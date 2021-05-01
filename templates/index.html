@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>Socilite</h1>
+<h2>Friends</h2>
+<table>
+    {% for f in g.user.friends %}
+        <tr><td>{{ f.first_name }}</td></tr>
+    {% endfor %}
+</table>
 {% endblock %}
