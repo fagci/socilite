@@ -1,19 +1,21 @@
 {% extends 'base.html' %}
-{% block content %}
+{% block main %}
+<main>
 {% for m in messages %}
-<div>
-    <small>{{m.created_at.strftime('%d.%m.%Y %H:%M')}}</small>
-    <br>
-    {{ m.text }}
-    <hr>
+<div class="msg msg-{{'out' if m.src==g.user else 'in'}}">
+    <cite>{{m.src}}</cite>
+    <div>{{ m.text }}</div>
+    <time datetime="{{m.created_at.isoformat('T','seconds')}}Z">{{m.created_at.strftime('%d.%m.%Y %H:%M')}}</time>
 </div>
 {% endfor %}
+</main>
 
+<footer>
 {% from "_macro.html" import input %}
-<form action="" method="POST">
+<form action="" method="POST" class="msg-send">
     {{form.hidden_tag()}}
     {{input(form.text)}}
-
-    <button type="submit">Send</button>
+    <button type="submit">➤</button>
 </form>
+</footer>
 {% endblock %}

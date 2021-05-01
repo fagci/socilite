@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Users</h2>
+<h1>Peoples</h1>
 <table>
     {% for u in users if u.id != g.user.id %}
     {% include '_user.html' %}

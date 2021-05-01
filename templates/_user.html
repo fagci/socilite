@@ -9,11 +9,11 @@
         <br><small><time datetime="{{dt.isoformat('T','seconds')}}Z">{{dt.strftime('%d.%m.%Y %H:%M')}}</time></small>
     </td>
     {% if g.user.is_authenticated %}
-    <td>
+    <td class="tr">
         {% if u in g.user.friends %}
-        <a href="{{url_for('remove_friend', login=u.login)}}">remove friend</a>
+        <a class="btn neg" href="{{url_for('remove_friend', login=u.login)}}">-</a>
         {% else %}
-        <a href="{{url_for('add_friend', login=u.login)}}">add friend</a>
+        <a class="btn" href="{{url_for('add_friend', login=u.login)}}">+</a>
         {% endif %}
     </td>
     {% endif %}

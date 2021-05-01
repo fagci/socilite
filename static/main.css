@@ -1,7 +1,10 @@
 :root {
-  --c-link: hsl(190,75%, 45%);
+  --c-link: hsl(195,65%, 45%);
   --c-button: #fff;
-  --bg-button: hsl(190,75%, 45%);
+  --bg-button: hsl(195,55%, 45%);
+  --bg-msg-in: hsl(195,45%, 90%);
+  --bg-msg-out: hsl(195,0%, 90%);
+  --bg-button-neg: hsl(0,55%, 45%);
   --bg: #fff;
 }
 
@@ -9,14 +12,22 @@ body {
   margin: 0;
   display: flex;
   flex-flow: column;
-  height: 100vh;
-  background-color: #fafafa;
+  bottom: 0;
+  top: 0;
+  left:0;
+  right:0;
+  position: fixed;
+  background-color: #f8f8f8;
 }
+
 * {
   box-sizing: border-box;
 }
+
 body>header{
   padding: 0.5em 3vw;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  z-index: 10;
 }
 
 a {
@@ -39,29 +50,35 @@ nav>a {
 nav>ul {
   display: flex;
   flex-wrap: wrap;
-  padding:0;
-  margin: 0;
-  list-style-type: none;
 }
 
 nav li {
-  display: inline-block;
-  padding: 0.75em 24px;
   margin:0;
+  padding: 0.75em 24px;
+  display: inline-block;
+}
+
+nav ul {
+  padding:0;
+  margin: 0;
+  list-style-type: none;
+  user-select: none;
 }
 
 nav>ul>li{
   position: relative;
-  background-color: #afa;
 }
 
 nav li>ul {
   position: absolute;
+  display:none;
   right: 0;
   top: 100%;
-  box-shadow: 0 2px 3px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
   border-radius: 4px;
 }
+nav li:hover>ul,
+nav li:focus-within>ul{display:block;}
 table, form, body>header, nav li>ul{
   background-color: var(--bg);
 }
@@ -79,6 +96,8 @@ form {
 }
 form label {
   display: block;
+  font-weight: bolder;
+  color: #666;
 }
 
 input, textarea, select {
@@ -86,13 +105,22 @@ input, textarea, select {
   padding: 8px;
 }
 
-button, input[type="button"] {
-  padding: 0.75em 2.5em;
+textarea {
+  width: 100%;
+}
+
+button, input[type="button"], .btn {
+  padding: 0.75em 24px;
   text-transform: uppercase;
   color: var(--c-button);
   background: var(--bg-button);
+  display: inline-block;
   border:none;
   border-radius: 4px;
+  line-height: 1.2;
+}
+button.neg, input[type="button"].neg, .btn.neg {
+  background: var(--bg-button-neg);
 }
 table {
   width: 100%;
@@ -105,4 +133,49 @@ td{
 }
 small {
   color: #666;
+}
+
+
+.msg {
+  background-color: var(--bg);
+  border-radius: 16px;
+  margin: 0.75em 0;
+  padding: 8px;
+  border:1px solid #ddd;
+}
+
+.msg time {
+  font-size: 0.75em;
+  color: #666;
+  line-height: 1.1;
+  display: block;
+  text-align: right;
+}
+
+.msg cite {
+  font-size: 0.875em;
+  font-weight: bolder;
+  font-style: unset;
+  color: #666;
+  line-height: 1.1;
+}
+
+.msg-out {
+  border-bottom-right-radius: 0;
+  background-color: var(--bg-msg-out);
+}
+.msg-in {
+  border-bottom-left-radius: 0;
+  background-color: var(--bg-msg-in);
+}
+.msg-send {
+  display:flex;
+  width:100%;
+  align-items: center;
+}
+.msg-send .form-group {flex-grow: 1; margin-right: 16px;}
+
+
+.tr {
+  text-align: right;
 }

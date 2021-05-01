@@ -11,9 +11,11 @@
         <header>
             {% include '_nav.html' %}
         </header>
+        {% block main %}
         <main>
             {% block content %}{% endblock %}
         </main>
+        {% endblock %}
         <script src="{{ url_for('static', filename='main.js') }}"></script>
     </body>
 </html>
