@@ -17,13 +17,15 @@ class User(db.Entity, UserMixin, Timestampable):
     first_name = Required(str)
     last_name = Optional(str)
     last_login = Optional(datetime)
-    messages = Set('Message')
     friends = Set('User', reverse='friends')
+    sent = Set('Message', reverse='src')
+    rcvd = Set('Message', reverse='dst')
 
     def check_password(self, password):
         return self.password == password
 
 
 class Message(db.Entity, Timestampable):
-    user = Required(User)
+    src = Required(User, reverse='sent')
+    dst = Optional(User, reverse='rcvd')
     text = Required(str)

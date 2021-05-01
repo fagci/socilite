@@ -83,10 +83,12 @@ def logout():
     return redirect('/')
 
 
-@app.route('/messages')
+@app.route('/messages/<login>')
 @login_required
-def messages():
-    return render_template('messages.html', messages=current_user.messages)
+def messages(login):
+    f = User.get(login=login)
+    current_user.messages.filter(lambda m: m.src == f or m.dst == f)
+    return render_template('messages.html', messages=messages)
 
 
 @app.before_request
@@ -101,6 +103,12 @@ if __name__ == '__main__':
     Pony(app)
     login_manager = LoginManager(app)
     login_manager.login_view = 'login'
+
+    with db_session:
+        if User.select().count() == 0:
+            for i in range(1, 4):
+                User(first_name='User %d' %
+                     i, login='user%d' % i, password='123')
 
     @login_manager.user_loader
     def load_user(user_id):
