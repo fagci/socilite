@@ -87,7 +87,7 @@ def logout():
 @login_required
 def messages(login):
     f = User.get(login=login)
-    current_user.messages.filter(lambda m: m.src == f or m.dst == f)
+    messages = current_user.sent.filter(lambda m: m.src == f or m.dst == f)
     return render_template('messages.html', messages=messages)
 
 

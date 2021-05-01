@@ -1,22 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-{% set friends = g.user.friends %}
-<h2>Friends</h2>
-<table>
-    {% for u in friends %}
-        <tr>
-            <td>{{ u.first_name }}</td>
-            <td><a href="{{url_for('remove_friend', login=u.login)}}">remove friend</a></td>
-        </tr>
-    {% endfor %}
-</table>
 <h2>Users</h2>
 <table>
-    {% for u in users if u.id != g.user.id and u not in friends %}
-    <tr>
-        <td>{{ u.first_name }}</td>
-        <td><a href="{{url_for('add_friend', login=u.login)}}">add friend</a></td>
-    </tr>
+    {% for u in users if u.id != g.user.id %}
+    {% include '_user.html' %}
     {% endfor %}
 </table>
 {% endblock %}

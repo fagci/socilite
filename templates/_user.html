@@ -1,0 +1,12 @@
+<tr>
+    <td>
+        <a href="{{url_for('messages', login=u.login)}}">{{ u.first_name }}</a>
+    </td>
+    <td>
+        {% if u in g.user.friends %}
+        <a href="{{url_for('remove_friend', login=u.login)}}">remove friend</a>
+        {% else %}
+        <a href="{{url_for('add_friend', login=u.login)}}">add friend</a>
+        {% endif %}
+    </td>
+</tr>
