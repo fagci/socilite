@@ -108,8 +108,10 @@ def messages(login):
 def profile():
     form = ProfileForm(**current_user.to_dict())
     if form.validate_on_submit():
-        current_user.first_name = form.first_name.data
-        current_user.last_name = form.last_name.data
+        current_user.set(
+            first_name=form.first_name.data,
+            last_name=form.last_name.data
+        )
     return render_template('profile.html', form=form)
 
 
@@ -136,7 +138,7 @@ if __name__ == '__main__':
     login_manager.login_view = 'login'
 
     with db_session:
-        if User.select().count() == 0:
+        if not User.select().exists():
             for i in range(1, 4):
                 User(first_name='User %d' %
                      i, login='user%d' % i, password='123')
