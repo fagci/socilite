@@ -38,12 +38,14 @@ def index():
 
 
 @app.route('/add_friend/<login>')
+@login_required
 def add_friend(login):
     current_user.friends.add(User.get(login=login))
     return redirect('/')
 
 
 @app.route('/remove_friend/<login>')
+@login_required
 def remove_friend(login):
     current_user.friends.remove(User.get(login=login))
     return redirect('/')
@@ -103,7 +105,7 @@ def messages(login):
 @app.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
-    form = ProfileForm(**current_user.to_dict())
+    form = ProfileForm(data=current_user.to_dict())
     if form.validate_on_submit():
         form.populate_obj(current_user)
     return render_template('profile.html', form=form)
