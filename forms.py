@@ -42,4 +42,4 @@ class MessageForm(FlaskForm):
 
 class ProfileForm(FlaskForm):
     first_name = StringField('First name', validators=[DataRequired()])
-    last_name = StringField('First name', validators=[DataRequired()])
+    last_name = StringField('Last name', validators=[DataRequired()])
