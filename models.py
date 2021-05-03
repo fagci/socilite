@@ -12,7 +12,7 @@ class User(db.Entity, UserMixin):
     first_name = Required(str)
     last_name = Optional(str)
     created_at = Required(datetime, default=datetime.utcnow)
-    last_login = Optional(datetime)
+    last_login = Optional(datetime, default=datetime.utcnow)
     friends = Set('User', reverse='friends')
     sent = Set('Message', reverse='src')
     rcvd = Set('Message', reverse='dst')

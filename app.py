@@ -65,12 +65,9 @@ def login():
 def reg():
     form = RegisterForm()
     if form.validate_on_submit():
-        user = User(
-            login=form.login.data,
-            password=form.password.data,
-            first_name=form.first_name.data
-        )
-        user.last_login = datetime.utcnow()
+        user = User(**{
+            k: v for k, v in form.data.items() if k != 'csrf_token'
+        })
         flush()
         login_user(user)
         return redirect('/')
@@ -108,10 +105,7 @@ def messages(login):
 def profile():
     form = ProfileForm(**current_user.to_dict())
     if form.validate_on_submit():
-        current_user.set(
-            first_name=form.first_name.data,
-            last_name=form.last_name.data
-        )
+        form.populate_obj(current_user)
     return render_template('profile.html', form=form)
 
 
