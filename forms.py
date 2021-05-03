@@ -1,7 +1,6 @@
 from flask_wtf import FlaskForm
-import flask_wtf
 from wtforms.fields.core import StringField
-from wtforms.fields.simple import PasswordField, TextAreaField, TextField
+from wtforms.fields.simple import PasswordField, TextAreaField
 from wtforms.validators import DataRequired
 
 from models import User
@@ -15,10 +14,7 @@ class LoginForm(FlaskForm):
         if not super(LoginForm, self).validate():
             return False
 
-        try:
-            user = User.get(login=self.login.data)
-        except:
-            user = None
+        user = User.get(login=self.login.data)
 
         valid = user and user.check_password(self.password.data)
 
@@ -37,10 +33,7 @@ class RegisterForm(FlaskForm):
         if not super(RegisterForm, self).validate():
             return False
 
-        try:
-            return not User.get(login=self.login.data)
-        except:
-            return True
+        return not User.get(login=self.login.data)
 
 
 class MessageForm(FlaskForm):
