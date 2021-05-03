@@ -6,10 +6,12 @@ from wtforms.validators import DataRequired
 from models import User
 
 
-class LoginForm(FlaskForm):
+class UserForm(FlaskForm):
     login = StringField('Login', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
 
+
+class LoginForm(UserForm):
     def validate(self):
         if not super(LoginForm, self).validate():
             return False
@@ -24,10 +26,8 @@ class LoginForm(FlaskForm):
         return valid
 
 
-class RegisterForm(FlaskForm):
+class RegisterForm(UserForm):
     first_name = StringField('First name', validators=[DataRequired()])
-    login = StringField('Login', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
 
     def validate(self):
         if not super(RegisterForm, self).validate():
